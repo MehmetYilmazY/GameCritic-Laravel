@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+    app:
+        container_name: gamecritic
+        build: .cloud/php
+        image: app-gamecritic
+        depends_on:
+            - redis
+        ports:
+            - "9037:9000"
+        volumes:
+            - ./:/var/www:cached
+        networks:
+            - gamecritic_network
+
+    nginx:
+        container_name: gamecritic.nginx
+        image: nginx
+        ports:
+            - "8037:8000"
+        volumes:
+            - .cloud/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:cached
+            - ./:/var/www:cached
+        depends_on:
+            - app
+        networks:
+            - gamecritic_network
+
+    redis:
+        container_name: gamecritic.redis
+        image: redis
+        ports:
+            - 63737:6379
+        volumes:
+            - .cloud/redis/data:/data
+        networks:
+            - gamecritic_network
+
+    pgres:
+        container_name: gamecritic.postgres
+        image: postgres
+        restart: always
+        ports:
+            - "54337:5432"
+        environment:
+            POSTGRES_DB: gamecritic
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: example
+            PGDATA: /tmp
+        volumes:
+            - .cloud/postgres/data:/var/lib/postgresql/data
+        networks:
+            - gamecritic_network
+networks:
+    gamecritic_network:
+        driver: bridge
