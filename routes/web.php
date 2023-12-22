@@ -18,11 +18,19 @@ Route::get('/', function () {
 });
 
 
-Route::get('/test', function () {
-    return view('admin.master');
+Route::get('/admin', function () {
+    return view('home');
 });
+
 
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/creategame', [App\Http\Controllers\GameController::class, 'index'])->name('creategame');
