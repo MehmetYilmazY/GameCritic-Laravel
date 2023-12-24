@@ -49,6 +49,14 @@
                                 <label for="releasedate" class="form-label">Release Date:</label>
                                 <input type="date" id="releasedate" name="releasedate" class="form-control" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="image_url" class="form-label">Image URL:</label>
+                                <input type="text" id="image_url" name="image_url" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="short_description" class="form-label">Short Description:</label>
+                                <input type="text" id="short_description" name="short_description" class="form-control" required>
+                            </div>
                             <button type="submit" class="btn btn-primary mt-2">Submit</button>
                         </form>
                     </div>

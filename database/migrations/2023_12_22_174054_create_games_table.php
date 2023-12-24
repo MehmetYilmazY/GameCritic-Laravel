@@ -9,18 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('oyunlar', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('about');
-            $table->float('metacritic_rate')->nullable();
-            $table->float('user_rate')->nullable();
-            // Diğer özellikler için sütunları ekleyebilirsiniz
+            $table->string('title');
+            $table->string('studio');
+            $table->string('platform');
+            $table->string('genre');
+            $table->date('releasedate');
+            $table->string('image_url');
+            $table->string('short_description');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

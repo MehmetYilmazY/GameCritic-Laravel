@@ -7,8 +7,8 @@ return [
      * These are the credentials you got from https://dev.twitch.tv/console/apps.
      */
     'credentials' => [
-        'client_id' => env('TWITCH_CLIENT_ID', 'bx6l428x33njdenvvyru0adjjfxi8m'),
-        'client_secret' => env('TWITCH_CLIENT_SECRET', ''),
+        'client_id' => env('TWITCH_CLIENT_ID', 'eoyumr27c6rhw1pm88cqr8e8xpiazy'),
+        'client_secret' => env('TWITCH_CLIENT_SECRET', '9gcvc3hpalo8u9kpg028ed80wow6lg'),
     ],
 
     /**
