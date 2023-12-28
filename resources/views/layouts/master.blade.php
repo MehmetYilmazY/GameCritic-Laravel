@@ -69,9 +69,10 @@
         </div>
     </footer>
     <!-- Bootstrap core JS-->
-    @yield('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    @yield('scripts')
+
 </body>
 </html>

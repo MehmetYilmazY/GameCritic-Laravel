@@ -57,8 +57,7 @@
                             <div class="mb-3">
                             <label for="short_description" class="form-label">Short Description:</label>
                             <input type="text" id="short_description" name="short_description" class="form-control" value="{{ old('short_description', $game->short_description) }}" required>
-                        </div>
-
+                        </div>                     
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
