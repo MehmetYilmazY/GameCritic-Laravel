@@ -23,18 +23,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Ad Soyad</th>
-                                        <th>Alış Yeri</th>
-                                        <th>Alış Tarihi</th>
-                                        <th>Alış Saati</th>
-                                        <th>Teslim Yeri</th>
-                                        <th>Teslim Tarihi</th>
-                                        <th>Teslim Saati</th>
-                                        <th>Firma</th>
-                                        <th>Aracı Teslim Edecek Mi?</th>
-                                        <th>Mail Gönderilecek Kişi</th>
                                         <th>Açıklama</th>
                                         <th>KVKK'yı Onayladı mı?</th>
                                         <th>Oluşturulma Tarihi</th>
+                                        <th>Detay</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -42,23 +34,16 @@
                                         <tr>
                                             <td>{{ $listrequest->id }}</td>
                                             <td>{{ $listrequest->kullaniciName }}</td>
-                                            <td>{{ $listrequest->alisYeri }}</td>
-                                            <td>{{ $listrequest->alisTarihi }}</td>
-                                            <td>{{ $listrequest->alisSaati }}</td>
-                                            <td>{{ $listrequest->teslimYeri }}</td>
-                                            <td>{{ $listrequest->teslimTarihi }}</td>
-                                            <td>{{ $listrequest->teslimSaati }}</td>
-                                            <td>{{ $listrequest->firma }}</td>
-                                            <td>{{ $listrequest->teslimEdilecek }}</td>
-                                            <td>{{ $listrequest->mailGonderilecekKisi }}</td>
                                             <td>{{ $listrequest->aciklama }}</td>
                                             <td>{{ $listrequest->kvkkForm }}</td>
                                             <td>{{ $listrequest->created_at }}</td>
-
+                                            <td>
+                                                <a href="{{ route('admin.showrequest', $carRequest->id) }}" class="btn btn-primary btn-sm">Detay</a>
+                                            </td>   
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="8" class="text-center">Henüz talep bulunmamaktadır.</td>
+                                            <td colspan="15" class="text-center">Henüz talep bulunmamaktadır.</td>
                                         </tr>
                                     @endforelse
                                     </tbody>

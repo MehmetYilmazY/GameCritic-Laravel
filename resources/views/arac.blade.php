@@ -49,7 +49,7 @@
             <div class="mb-3 row">
             <div class="col-md-4">
                 <label class="form-label" for="teslimYeri">Teslim Yeri</label>
-                <input class="form-control" id="teslimYeri" name="teslimYeri" type="text" placeholder="Bırakış Yeri" required />
+                <input class="form-control" id="teslimYeri" name="teslimYeri" type="text" placeholder="Teslim Yeri" required />
                 <div class="invalid-feedback">Bırakış Yeri is required.</div>
             </div>
 
@@ -124,7 +124,7 @@
 @section('scripts')
 <script>
     document.getElementById('teslimEdilecek').addEventListener('change', function () {
-        var elementsToDisable = document.querySelectorAll('#teslimYeri, #teslimTarihi, #teslimSaati');
+        var elementsToDisable = document.querySelectorAll('#teslimYeri');
         elementsToDisable.forEach(function (element) {
             element.disabled = this.checked;
         }, this);
