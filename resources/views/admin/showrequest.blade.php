@@ -18,56 +18,56 @@
 
                     <!-- Diğer detayları buraya ekleyin -->
                     <div class="row">
-                            <h4>Araç Kiralama Şirketi</h4>
-                            <h5 class="fw-bold">{{ $carRequest->firma }}</h5>
+                            <h5>Araç Kiralama Şirketi</h4>
+                            <p class="fw-bold">{{ $carRequest->firma }}</p>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col">
-                            <h4>Alış Yeri</h4>
-                            <h5 class="fw-bold">{{ $carRequest->alisYeri }}</h5>
+                            <h5>Alış Yeri</h4>
+                            <p class="fw-bold">{{ $carRequest->alisYeri }}</p>
                         </div>
                         <div class="col">
-                            <h4>Bırakış Yeri</h4>
+                            <h5>Bırakış Yeri</h4>
                             @if(!empty($carRequest->teslimYeri))
-                            <h5 class="fw-bold">{{ $carRequest->teslimYeri }}</h5>
+                            <p class="fw-bold">{{ $carRequest->teslimYeri }}</p>
                             @else
-                            <h5 class="fw-bold">{{ $carRequest->alisYeri }}</h5>
+                            <p class="fw-bold">{{ $carRequest->alisYeri }}</p>
                             @endif
                         </div>
                         <div class="col">
-                            <h4>Talep Tarihi</h4>
-                            <h5 class="fw-bold">{{ $carRequest->created_at }}</h5>
+                            <h5>Talep Tarihi</h4>
+                            <p class="fw-bold">{{ $carRequest->created_at }}</p>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            <h4>Alış Tarihi</h4>
+                            <h5>Alış Tarihi</h5>
                             @if(!empty($carRequest->alisTarihi))
-                            <h5 class="fw-bold">{{ $carRequest->alisTarihi }} {{ $carRequest->alisSaati }}</h5>
+                            <p class="fw-bold">{{ $carRequest->alisTarihi }} {{ $carRequest->alisSaati }}</p>
                             @else
-                            <h5 class="fw-bold">{{ $carRequest->teslimTarihi }} {{ $carRequest->teslimSaati }}</h5>
+                            <p class="fw-bold">{{ $carRequest->teslimTarihi }} {{ $carRequest->teslimSaati }}</p>
                             @endif
                         </div>
                         <div class="col">
-                            <h4>Bırakış Tarihi</h4>
-                            <h5 class="fw-bold">{{ $carRequest->teslimTarihi }} {{ $carRequest->teslimSaati }}</h5>
+                            <h5>Bırakış Tarihi</h5>
+                            <p class="fw-bold">{{ $carRequest->teslimTarihi }} {{ $carRequest->teslimSaati }}</p>
                         </div>
                         <div class="col">
-                            <h4>Talep Güncelleme Tarihi</h4>
-                            <h5 class="fw-bold">{{ $carRequest->updated_at }}</h5>
+                            <h5>Talep Güncelleme Tarihi</h5>
+                            <p class="fw-bold">{{ $carRequest->updated_at }}</p>
                         </div>
                     </div>
 
                     <div class="row inline">
                     <div class="col mt-3">
-                        <h4>Açıklama</h4>
-                        <h5 class="fw-bold">{{ $carRequest->aciklama }}</h5>
+                        <h5>Açıklama</h5>
+                        <p class="fw-bold">{{ $carRequest->aciklama }}</p>
                     </div>
 
                     <div class="col mt-3">
-                            <h4>Talep Sorumlusu</h4>
-                            <h5 class="fw-bold">Mehmet Yılmaz</h5>
+                            <h5>Talep Sorumlusu</h5>
+                            <p class="fw-bold">Mehmet Yılmaz</p>
                         </div>
                         </div>
                     <div class="mt-4">
@@ -105,27 +105,82 @@
                     </form>
                 </div>
             </div>
-             <!-- Teklif Kartı -->
-             <div class="card mt-4">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="https://app.hisgo.com.tr/assets/img/no-image.png" alt="Teklif Görseli" class="img-fluid" width="200" height="150">
+            @if($teklifler->isNotEmpty())
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h5 class="card-title">Teklifler</h5>
                             </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Teklif Başlığı</h5>
-                                    <p class="card-text">CDAR DENEME1 BENZINLI-OTOMATIK OPEL MOKKA, CROSSLAND VB.</p>
-                                    <h5 class="card-title">Genel Bilgiler</h5>
-                                    <p class="card-text">Bilgi Yok</p>
+                            <div class="card-body">
+                                @foreach($teklifler as $teklif)
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="https://app.hisgo.com.tr/assets/img/no-image.png" alt="Teklif Görseli" class="img-fluid" width="200" height="150">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title" id="teklifBaslik">{{ $teklif->teklif_baslik }}</h5>
+                                                <p class="card-text" id="genelBilgiler">{{ $teklif->genel_bilgiler }}</p>
+                                                <h5 class="card-title">Fiyat</h5>
+                                                <p class="card-text">{{ $teklif->fiyat }} -{{ $teklif->doviz }} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
+            <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Teklif Ekle</button>
+
+            <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Teklif Ekle</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                <form action="{{ route('teklif.kaydet', $carRequest->id) }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="teklifBaslikInput" class="form-label">Teklif Başlığı:</label>
+                        <input type="text" class="form-control" id="teklifBaslikInput" name="teklif_baslik" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="genelBilgilerInput" class="form-label">Genel Bilgiler:</label>
+                        <textarea class="form-control" id="genelBilgilerInput" name="genel_bilgiler" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fiyat" class="form-label">Fiyat:</label>
+                        <input type="text" class="form-control" id="fiyat" name="fiyat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="doviz" class="form-label">Döviz Türü:</label>
+                        <select class="form-select" id="doviz" name="doviz" required>
+                            <option value="TRY">TRY - Türk Lirası</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="USD">USD - Amerikan Doları</option>
+                            <option value="GBP">GBP - İngiliz Sterlini</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Teklif Ekle</button>
+                </form>                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    <button href="#" class="btn btn-primary mt-2">Teklif Ekle</button>
-
+            </div>
                     
                 </div>
             </div>
         </div>
         @endsection
+
+@section('scripts')
+<script>
+</script>
+@endsection

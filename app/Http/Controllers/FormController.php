@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cars;
+use App\Models\Offer;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,15 +36,13 @@ class FormController extends Controller
     }
     
     public function showCarForm($id)
-
-        
     {
         $listrequests = Cars::all();
         $carRequest = Cars::findOrFail($id);
         $comments = Comment::where('car_request_id', $id)->get();
-
+        $teklifler = Offer::where('car_request_id', $id)->get(); // Tüm teklifleri al
     
-        return view('admin.showrequest', compact('carRequest', 'listrequests', 'comments' ));
+        return view('admin.showrequest', compact('carRequest', 'listrequests', 'comments', 'teklifler'));
     }
 
     public function editCarForm($id)
@@ -86,5 +85,21 @@ class FormController extends Controller
 
             return back()->with('success', 'Mesaj başarıyla eklendi!');
         }
+        
+public function teklifKaydet(Request $request, $carRequestId)
+{
+    // Formdan gelen verileri al
+    $teklifData = $request->only(['teklif_baslik', 'genel_bilgiler', 'fiyat','doviz']);
 
+    // Veritabanına kaydet
+    Offer::create([
+        'car_request_id' => $carRequestId,
+        'teklif_baslik' => $teklifData['teklif_baslik'],
+        'genel_bilgiler' => $teklifData['genel_bilgiler'],
+        'fiyat' => $teklifData['fiyat'],
+        'doviz' => $teklifData['doviz'],
+    ]);
+
+    return redirect()->back()->with('success', 'Teklif başarıyla eklendi.');
+}
 }
