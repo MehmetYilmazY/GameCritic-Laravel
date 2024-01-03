@@ -49,3 +49,4 @@ Route::delete('/arac-talep-sil/{id}', [FormController::class, 'deleteCarForm'])-
 
 Route::post('/comment/add/{carRequestId}', [FormController::class, 'addComment'])->name('comment.add');
 Route::post('/teklif/kaydet/{carRequestId}', [FormController::class, 'teklifKaydet'])->name('teklif.kaydet');
+Route::post('/teklif/onayla/{teklifId}', [FormController::class, 'onaylaTeklif'])->name('teklif.onayla');

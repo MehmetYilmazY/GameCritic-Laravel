@@ -8,6 +8,8 @@ use App\Models\Cars;
 use App\Models\Offer;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+
 
 
 
@@ -86,20 +88,32 @@ class FormController extends Controller
             return back()->with('success', 'Mesaj başarıyla eklendi!');
         }
         
-public function teklifKaydet(Request $request, $carRequestId)
-{
-    // Formdan gelen verileri al
-    $teklifData = $request->only(['teklif_baslik', 'genel_bilgiler', 'fiyat','doviz']);
+            public function teklifKaydet(Request $request, $carRequestId)
+            {
+                // Formdan gelen verileri al
+                $teklifData = $request->only(['teklif_baslik', 'genel_bilgiler', 'fiyat','doviz']);
 
-    // Veritabanına kaydet
-    Offer::create([
-        'car_request_id' => $carRequestId,
-        'teklif_baslik' => $teklifData['teklif_baslik'],
-        'genel_bilgiler' => $teklifData['genel_bilgiler'],
-        'fiyat' => $teklifData['fiyat'],
-        'doviz' => $teklifData['doviz'],
-    ]);
+                // Veritabanına kaydet
+                Offer::create([
+                    'car_request_id' => $carRequestId,
+                    'teklif_baslik' => $teklifData['teklif_baslik'],
+                    'genel_bilgiler' => $teklifData['genel_bilgiler'],
+                    'fiyat' => $teklifData['fiyat'],
+                    'doviz' => $teklifData['doviz'],
+                ]);
 
-    return redirect()->back()->with('success', 'Teklif başarıyla eklendi.');
-}
+                return redirect()->back()->with('success', 'Teklif başarıyla eklendi.');
+            }
+
+            public function onaylaTeklif($teklifId)
+            {
+                $teklif = Offer::findOrFail($teklifId);
+        
+                // Eğer teklif zaten onaylanmamışsa, onay durumunu güncelle
+                if ($teklif->onay_durumu != 'onaylandi') {
+                    $teklif->update(['onay_durumu' => 'onaylandi']);
+                }
+        
+                return Redirect::back()->with('success', 'Teklif başarıyla onaylandı.');
+            }
 }

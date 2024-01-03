@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('genel_bilgiler');
             $table->decimal('fiyat', 8, 2);
             $table->text('doviz');
+            $table->text('onay_durumu')->nullable();
             $table->timestamps();
         });
     }

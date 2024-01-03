@@ -122,6 +122,25 @@
                                                 <p class="card-text" id="genelBilgiler">{{ $teklif->genel_bilgiler }}</p>
                                                 <h5 class="card-title">Fiyat</h5>
                                                 <p class="card-text">{{ $teklif->fiyat }} -{{ $teklif->doviz }} </p>
+                                                <div class="col-md-2">
+                                                @if($teklif->onay_durumu != 'onaylandi')
+                {{-- Kullanıcının daha önceki bir teklifi onaylamış mı kontrol et --}}
+                @php
+                    $userPreviouslyAcceptedOffer = auth()->user()->offers()->where('onay_durumu', 'onaylandi')->exists();
+                @endphp
+
+                {{-- Kullanıcı daha önceki bir teklifi onaylamışsa butonu devre dışı bırak --}}
+                @if($userPreviouslyAcceptedOffer)
+                    <button class="btn btn-success" disabled>Önceki Teklif Onaylandı</button>
+                @else
+                    <form action="{{ route('teklif.onayla', $teklif->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success">Onayla</button>
+                    </form>
+                @endif
+            @else
+                <button class="btn btn-success" disabled>Onaylandı</button>
+            @endif
                                             </div>
                                         </div>
                                     </div>
