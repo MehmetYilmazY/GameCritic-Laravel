@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Cars extends Model
 {
     use HasFactory;
-    protected $fillable = ['teslimEdilecek', 'kullaniciName', 'alisYeri','alisTarihi', 'alisSaati', 'teslimYeri', 'teslimTarihi', 'teslimSaati', 'firma', 'mailGonderilecekKisi', 'aciklama', 'kvkkForm'];
+    protected $fillable = ['teslimEdilecek', 'kullaniciName', 'alisYeri','alisTarihi', 'alisSaati', 'teslimYeri', 'teslimTarihi', 'teslimSaati', 'firma', 'mailGonderilecekKisi', 'mailGonderilecekKisi2', 'aciklama', 'kvkkForm'];
 }

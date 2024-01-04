@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cars;
 use App\Models\Offer;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 
@@ -20,37 +21,40 @@ class FormController extends Controller
         // Formdan gelen verileri al
         $formData = $request->all();
 
-        // Veritabanına ekle
+        $users = User::all();
+
         Cars::create($formData);
+        return view('arac',compact('users'))->with('success', 'Kayıt başarıyla oluşturuldu!');
 
         // Başarılı bir şekilde ekledikten sonra aynı sayfaya dön
-        return back()->with('success', 'Form başarıyla gönderildi!');
+        return back()->with('success', 'Kayıt başarıyla oluşturuldu!');
     }
 
-    public function listCarForm()
-    {
-        $listrequests = Cars::all();
-    
-        // Fetch the first car request (you may want to adjust this logic based on your requirements)
-        $carRequest = Cars::first();
-    
-        return view('admin.listrequest', compact('listrequests', 'carRequest'));
-    }
-    
+        public function listCarForm()
+        {
+
+            $listrequests = Cars::all();
+
+            // İlk araç talebini çek
+            $carRequest = Cars::first();
+
+            return view('admin.listrequest', compact('listrequests', 'carRequest', 'users'));
+        }
+
     public function showCarForm($id)
     {
         $listrequests = Cars::all();
         $carRequest = Cars::findOrFail($id);
         $comments = Comment::where('car_request_id', $id)->get();
         $teklifler = Offer::where('car_request_id', $id)->get(); // Tüm teklifleri al
-    
+
         return view('admin.showrequest', compact('carRequest', 'listrequests', 'comments', 'teklifler'));
     }
 
     public function editCarForm($id)
     {
         $carRequest = Cars::findOrFail($id);
-        
+
         return view('admin.aracedit', compact('carRequest'));
     }
 
@@ -87,7 +91,7 @@ class FormController extends Controller
 
             return back()->with('success', 'Mesaj başarıyla eklendi!');
         }
-        
+
             public function teklifKaydet(Request $request, $carRequestId)
             {
                 // Formdan gelen verileri al
@@ -108,12 +112,12 @@ class FormController extends Controller
             public function onaylaTeklif($teklifId)
             {
                 $teklif = Offer::findOrFail($teklifId);
-        
+
                 // Eğer teklif zaten onaylanmamışsa, onay durumunu güncelle
                 if ($teklif->onay_durumu != 'onaylandi') {
                     $teklif->update(['onay_durumu' => 'onaylandi']);
                 }
-        
+
                 return Redirect::back()->with('success', 'Teklif başarıyla onaylandı.');
             }
 }

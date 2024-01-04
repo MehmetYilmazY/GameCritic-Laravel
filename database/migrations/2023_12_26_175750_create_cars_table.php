@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('teslimSaati')->nullable();
             $table->string('firma')->nullable();
             $table->string('mailGonderilecekKisi')->nullable();
+            $table->string('mailGonderilecekKisi2')->nullable();
             $table->string('aciklama')->nullable();
             $table->string('kvkkForm')->nullable();
             $table->timestamps();

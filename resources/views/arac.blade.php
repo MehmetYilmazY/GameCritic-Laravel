@@ -21,8 +21,10 @@
             <div class="mb-3">
                 <label class="form-label" for="kullaniciName">Kullanıcı Seçiniz</label>
                 <select class="form-select" id="kullaniciName" name="kullaniciName" aria-label="Kullanıcı Seçiniz">
-                    <option value="Mehmet Yılmaz">Mehmet Yılmaz</option>
-                    <option value="Fatih Vural">Fatih Vural</option>
+                    <option value="" selected disabled>Seçiniz</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->name }}" data-email="{{ $user->email }}">{{ $user->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -32,7 +34,6 @@
                     <input class="form-control" id="alisYeri" name="alisYeri" type="text" placeholder="Alış Yeri" required />
                     <div class="invalid-feedback">Alış Yeri is required.</div>
                 </div>
-
                 <div class="col-md-4">
                     <label class="form-label" for="alisTarihi">Alış Tarihi</label>
                     <input class="form-control" id="alisTarihi" name="alisTarihi" type="date" placeholder="Alış Tarihi" required />
@@ -70,17 +71,31 @@
             <div class="mb-3">
                 <label class="form-label" for="firma">Firma</label>
                 <select class="form-select" id="firma" name="firma" aria-label="Firma">
+                    <option value="" selected disabled>Seçiniz</option>
                     <option value="Avis">Avis</option>
                     <option value="Garenta">Garenta</option>
                     <option value="Sixt">Sixt</option>
+                    <option value="Budget">Budget</option>
+                    <option value="Enterprise">Enterprise</option>
+                    <option value="RentGo">Rent Go</option>
+                    <option value="diger">Diğer</option>
                 </select>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label" for="mailGonderilecekKisi">Mail Gönderilecek Kişi</label>
-                <input class="form-control" id="mailGonderilecekKisi" name="mailGonderilecekKisi" type="text" placeholder="Mail Gönderilecek Kişi" required />
-                <div class="invalid-feedback">Mail Gönderilecek Kişi is required.</div>
+            <div class="mb-3 d-flex">
+                <div class="me-3 w-50">
+                    <label class="form-label" for="mailGonderilecekKisi">Mail Gönderilecek Kişi*</label>
+                    <input class="form-control disabled" id="mailGonderilecekKisi" name="mailGonderilecekKisi1" type="text" placeholder="Mail Gönderilecek Kişi" required readonly/>
+                    <div class="invalid-feedback">Mail Gönderilecek Kişi is required.</div>
+                </div>
+
+                <div class="me-3 w-50">
+                    <label class="form-label" for="mailGonderilecekKisi2">Mail Gönderilecek İkinci Kişi</label>
+                    <input class="form-control" id="mailGonderilecekKisi2" name="mailGonderilecekKisi2" type="text" placeholder="Mail Gönderilecek İkinci Kişi" />
+                    <div class="invalid-feedback">Mail Gönderilecek Kişi is required.</div>
+                </div>
             </div>
+
 
             <div class="mb-3">
                 <label class="form-label" for="aciklama">Açıklama</label>
@@ -122,7 +137,20 @@
 @endsection
 
 @section('scripts')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script>
+       // Sayfa yüklendiğinde çalışacak kod
+       $(document).ready(function() {
+        // Kullanıcı seçimi değiştiğinde çalışacak kod
+        $('#kullaniciName').change(function() {
+            // Seçilen kullanıcının emailini al
+            var selectedUserEmail = $(this).find(':selected').data('email');
+            // Mail gönderilecek kişi alanına emaili yaz
+            $('#mailGonderilecekKisi').val(selectedUserEmail);
+        });
+    });
+
     document.getElementById('teslimEdilecek').addEventListener('change', function () {
         var elementsToDisable = document.querySelectorAll('#teslimYeri');
         elementsToDisable.forEach(function (element) {

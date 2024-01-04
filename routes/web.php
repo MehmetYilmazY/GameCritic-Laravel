@@ -33,7 +33,7 @@ Route::put('/creategame/update/{id}', [App\Http\Controllers\GameController::clas
 Route::delete('/creategame/destroy/{id}', [App\Http\Controllers\GameController::class, 'destroy'])->name('creategame.destroy');
 Route::get('/games/{id}', [App\Http\Controllers\GameController::class, 'show'])->name('detail');
 Route::post('/rate-game', [App\Http\Controllers\GameController::class, 'rateGame'])->name('rateGame');
-Route::get('/arac', function () {return view('arac');});
+Route::get('/arac', [FormController::class, 'submitCarForm']);
 Route::post('/arac-talep-formu', [FormController::class, 'submitCarForm'])->name('arac-talep-formu');
 Route::get('/arac-talep-listeleme', [App\Http\Controllers\FormController::class, 'listCarForm'])->name('arac-talep-listeleme');
 Route::get('/car-form', [FormController::class, 'listCarForm'])->name('admin.listrequest');
