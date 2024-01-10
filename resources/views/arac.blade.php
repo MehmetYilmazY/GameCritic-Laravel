@@ -90,8 +90,8 @@
                 </div>
 
                 <div class="me-3 w-50">
-                    <label class="form-label" for="mailGonderilecekKisi2">Mail Gönderilecek İkinci Kişi</label>
-                    <input class="form-control" id="mailGonderilecekKisi2" name="mailGonderilecekKisi2" type="text" placeholder="Mail Gönderilecek İkinci Kişi" />
+                    <label class="form-label" for="mailGonderilecekKisi2">Mail Gönderilecek Diğer Kişiler</label>
+                    <input class="form-control" id="mailGonderilecekKisi2" name="mailGonderilecekKisi2" type="text" placeholder="Mail Gönderilecek Diğer Kişiler" />
                     <div class="invalid-feedback">Mail Gönderilecek Kişi is required.</div>
                 </div>
             </div>
